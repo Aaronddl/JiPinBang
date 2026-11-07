@@ -3,746 +3,569 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>极品帮 | 组织介绍</title>
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <title>۩极品帮官网</title>
     <style>
+        /* --- 全局样式重置 --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth; /* 平滑滚动 */
         }
 
         body {
-            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
-            background: #0a0a0a;
-            color: #fff;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a; /* 极深灰背景 */
+            color: #e0e0e0;
+            line-height: 1.6;
         }
 
-        /* 动态背景 */
-        .bg-animation {
+        /* --- 导航栏样式 --- */
+        header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(45deg, #0a0a0a, #1a0a2e, #0a1a2e, #0a0a0a);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* 粒子效果 */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 215, 0, 0.5);
-            border-radius: 50%;
-            animation: float 20s infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
-        }
-
-        /* 导航栏 */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
+            height: 80px;
+            background-color: rgba(10, 10, 10, 0.95);
+            border-bottom: 2px solid #ff6600; /* 橙色底边 */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(10px);
+            padding: 0 50px;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.2);
+            backdrop-filter: blur(5px);
         }
 
-        .nav-logo {
-            font-size: 24px;
+        .logo {
+            font-size: 28px;
             font-weight: bold;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #ff6600; /* 主题橙色 */
+            text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
         }
 
-        .nav-links {
+        nav ul {
             display: flex;
-            gap: 30px;
             list-style: none;
         }
 
-        .nav-links a {
-            color: #ccc;
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
             text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .nav-links a::after {
+        /* 导航悬停特效 */
+        nav ul li a:hover, nav ul li a.active {
+            color: #ff6600;
+        }
+
+        nav ul li a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            transition: width 0.3s;
+            bottom: -5px;
+            left: 0;
+            background-color: #ff6600;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 8px #ff6600;
         }
 
-        .nav-links a:hover {
-            color: #ffd700;
-        }
-
-        .nav-links a:hover::after {
+        nav ul li a:hover::after, nav ul li a.active::after {
             width: 100%;
         }
 
-        /* Hero 区域 */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
+        /* --- 主要内容区域 --- */
+        main {
+            padding-top: 80px; /* 防止内容被导航栏遮挡 */
         }
 
-        .hero-badge {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border: 3px solid #ffd700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 72px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.3), inset 0 0 30px rgba(255, 215, 0, 0.1);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.3), inset 0 0 30px rgba(255, 215, 0, 0.1); }
-            50% { box-shadow: 0 0 80px rgba(255, 215, 0, 0.5), inset 0 0 50px rgba(255, 215, 0, 0.2); }
-        }
-
-        .hero h1 {
-            font-size: 64px;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00, #ffd700);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s ease infinite;
-            letter-spacing: 8px;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .hero .subtitle {
-            font-size: 20px;
-            color: #aaa;
-            letter-spacing: 4px;
-            margin-bottom: 40px;
-        }
-
-        .hero .slogan {
-            font-size: 16px;
-            color: #ffd700;
-            font-style: italic;
-            letter-spacing: 2px;
-            padding: 15px 40px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 30px;
-            background: rgba(255, 215, 0, 0.05);
-        }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            color: #666;
-            font-size: 14px;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-        }
-
-        /* 通用 Section */
         section {
-            padding: 100px 50px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 42px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            letter-spacing: 4px;
-        }
-
-        .section-title .line {
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            margin: 0 auto;
-            border-radius: 2px;
-        }
-
-        /* 关于我们 */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .about-text p {
-            font-size: 16px;
-            line-height: 2;
-            color: #ccc;
-            margin-bottom: 20px;
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.1);
-        }
-
-        .stat-card .number {
-            font-size: 48px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .stat-card .label {
-            font-size: 14px;
-            color: #888;
-            margin-top: 10px;
-        }
-
-        /* 核心理念 */
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .value-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 215, 0, 0.15);
-            border-radius: 15px;
-            padding: 40px 30px;
-            text-align: center;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .value-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.05), transparent);
-            transition: left 0.5s;
-        }
-
-        .value-card:hover::before {
-            left: 100%;
-        }
-
-        .value-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 215, 0, 0.4);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .value-icon {
-            font-size: 50px;
-            margin-bottom: 20px;
-        }
-
-        .value-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #ffd700;
-        }
-
-        .value-card p {
-            font-size: 14px;
-            color: #999;
-            line-height: 1.8;
-        }
-
-        /* 组织架构 */
-        .org-structure {
+            min-height: 100vh; /* 每个板块至少一屏高 */
+            padding: 60px 50px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 30px;
+            justify-content: center;
+            border-bottom: 1px solid #1f1f1f;
+            opacity: 0; /* 初始隐藏，用于动画 */
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s forwards;
         }
 
-        .org-level {
+        /* 简单的入场动画 */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 给不同板块加一点动画延迟 */
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.3s; }
+        section:nth-child(4) { animation-delay: 0.4s; }
+
+        h2 {
+            font-size: 40px;
+            color: #ff6600;
+            margin-bottom: 20px;
+            border-left: 5px solid #ff6600;
+            padding-left: 20px;
+        }
+
+        p {
+            max-width: 800px;
+            font-size: 18px;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+
+        /* 卡片容器 */
+        .card-container {
             display: flex;
             gap: 20px;
-            justify-content: center;
+            margin-top: 30px;
             flex-wrap: wrap;
         }
 
-        .org-node {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 12px;
-            padding: 20px 30px;
-            text-align: center;
-            min-width: 150px;
-            transition: all 0.3s;
-        }
-
-        .org-node:hover {
-            background: rgba(255, 215, 0, 0.1);
-            transform: scale(1.05);
-        }
-
-        .org-node .role {
-            font-size: 16px;
-            color: #ffd700;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .org-node .desc {
-            font-size: 12px;
-            color: #888;
-        }
-
-        .org-connector {
-            width: 2px;
-            height: 30px;
-            background: linear-gradient(to bottom, rgba(255, 215, 0, 0.5), transparent);
-        }
-
-        /* 加入我们 */
-        .join-section {
-            text-align: center;
-            padding: 80px 50px;
-            background: rgba(255, 215, 0, 0.02);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.15);
-        }
-
-        .join-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .join-section p {
-            font-size: 16px;
-            color: #aaa;
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
-        }
-
-        .join-btn {
-            display: inline-block;
-            padding: 15px 50px;
-            font-size: 18px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            color: #0a0a0a;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            letter-spacing: 2px;
+        .card {
+            background: #161616;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 250px;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .join-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.4);
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.15);
+            border-color: #ff6600;
         }
 
-        /* 页脚 */
-        footer {
-            padding: 40px 50px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 215, 0, 0.1);
-            color: #666;
-            font-size: 14px;
-        }
-
-        footer .footer-logo {
-            font-size: 20px;
-            background: linear-gradient(135deg, #ffd700, #ff8c00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: bold;
+        .card h3 {
+            color: #fff;
             margin-bottom: 10px;
         }
 
-        /* 响应式 */
-        @media (max-width: 768px) {
-            nav { padding: 15px 20px; }
-            .nav-links { display: none; }
-            section { padding: 60px 20px; }
-            .hero h1 { font-size: 36px; }
-            .hero-badge { width: 120px; height: 120px; font-size: 48px; }
-            .about-content { grid-template-columns: 1fr; }
-            .values-grid { grid-template-columns: 1fr; }
-            .about-stats { grid-template-columns: 1fr 1fr; }
+        /* --- 页脚 --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            background-color: #050505;
+            color: #666;
+            border-top: 1px solid #222;
+        }
+        .card h4 {
+            color: #ff6600;
+            margin-bottom: 7px;
+        }
+        
+        /* 滚动渐进效果的基础样式 */
+        .reveal {
+            opacity: 0; /* 初始完全透明 */
+            transform: translateY(50px); /* 初始向下偏移50px */
+            transition: all 0.8s ease-out; /* 过渡动画，持续0.8秒 */
         }
 
-        /* 滚动动画 */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s, transform 0.6s;
+        /* 当元素进入视口时添加的类 */
+        .reveal.active {
+            opacity: 1; /* 变为不透明 */
+            transform: translateY(0); /* 回到原位 */
         }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+        a {
+            color: #ff6600;
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <div class="bg-animation"></div>
-    <div class="particles" id="particles"></div>
 
-    <!-- 导航栏 -->
-    <nav>
-        <div class="nav-logo">⚜ 极品帮</div>
-        <ul class="nav-links">
-            <li><a href="#home">首页</a></li>
-            <li><a href="#about">关于我们</a></li>
-            <li><a href="#values">成员</a></li>
-            <li><a href="#structure">组织架构</a></li>
-            <li><a href="#join">极品事件</a></li>
-        </ul>
-    </nav>
+    <!-- 顶部导航栏 -->
+    <header>
+        <div class="logo">۩极品帮-JiPinBang</div>
+        <nav>
+            <ul>
+                <li><a href=" " class="active">首页</a ></li>
+                <li><a href="#features">介绍</a ></li>
+                <li><a href="#gallery">架构</a ></li>
+                <li><a href="#contact">成员</a ></li>
+                <li><a href="#docs">文档</a ></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Hero -->
-    <section class="hero" id="home">
-        <div class="hero-badge">⚜</div>
-        <h1>极品帮</h1>
-        <p class="subtitle">极品帮官方网站</p>
-        <p class="slogan">"如果你是个极品，欢迎加入"</p>
-        <div class="scroll-hint">向下滚动探索更多</div>
-    </section>
+    <!-- 主要内容 -->
+    <main>
+        <section id="home">
+            <h2 class="reveal">欢迎来到 极品帮</h2>
+            <p class="reveal">极品帮始终坚持着初心——做最好的自己，成就最好的团队。我们相信，每一个成员都是独一无二的极品。</p >
+            <p class="reveal">如果你是个极品，欢迎加入。</p >
+        </section>
 
-    <!-- 关于我们 -->
-    <section id="about">
-        <div class="section-title fade-in">
-            <h2>关于极品帮</h2>
-            <div class="line"></div>
-        </div>
-        <div class="about-content">
-            <div class="about-text fade-in">
-                <p>极品帮创立于江湖之中，汇聚了一群不甘平庸、追求极致的热血之人。我们以"极品"为名，以卓越为志，在各自的领域中不断突破，追求完美。</p>
-                <p>从最初的三五好友，到如今人才济济的大家庭，极品帮始终坚持着初心——做最好的自己，成就最好的团队。我们相信，每一个成员都是独一无二的极品。</p>
-                <p>在这里，没有不可能，只有还不够努力。我们崇尚实力，尊重个性，鼓励创新，包容多元。</p>
-            </div>
-            <div class="about-stats fade-in">
-                <div class="stat-card">
-                    <div class="number">10+</div>
-                    <div class="label">核心成员</div>
+        <section id="features">
+            <h2 class="reveal">组织介绍</h2>
+            <p class="reveal">极品帮创立于江湖之中，汇聚了一群不甘平庸、追求极致的热血之人。我们以"极品"为名，以卓越为志，在各自的领域中不断突破，追求完美。</p >
+            <div class="card-container">
+                <div class="card reveal">
+                    <h3>成员</h3>
+                    <p>10+</p >
                 </div>
-                <div class="stat-card">
-                    <div class="number">20+</div>
-                    <div class="label">极品事件</div>
+                <div class="card reveal">
+                    <h3>极品事件</h3>
+                    <p>10+</p >
                 </div>
-                <div class="stat-card">
-                    <div class="number">10+</div>
-                    <div class="label">极品大金</div>
-                </div>
-                <div class="stat-card">
-                    <div class="number">∞</div>
-                    <div class="label">极品指数</div>
+                <div class="card reveal">
+                    <h3>极品指数</h3>
+                    <p>∞</p >
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 核心理念 -->
-    <section id="values">
-        <div class="section-title fade-in">
-            <h2>成员</h2>
-            <div class="line"></div>
-        </div>
-        <div class="values-grid">
-            <div class="value-card fade-in">
-                <div class="value-icon">CMY</div>
-                <h3>帮主</h3>
-                <p>简介：极品帮主管</p>
+        <section id="gallery">
+            <h2 class="reveal">组织架构</h2>
+            <p class="reveal">这里可以直观的了解极品帮的分支附属帮派。</p >
+            <div class="card-container">
+                <div class="card reveal">
+                    <h3>KARDS帮</h3>
+                    <h4>LBY WYC YYH ZZL</h4>
+                    <p>成员共同讨论KARDS游戏</p >
+                </div>
+                <div class="card reveal">
+                    <h3>上海三打一</h3>
+                    <h4>LBY DHYY YYH</h4>
+                    <p>三人团结抵御敌对帮派单个成员</p >
+                </div>
+                <div class="card reveal">
+                    <h3>一人CS帮</h3>
+                    <h4>ZZL</h4>
+                    <p>成员独自进行CS游戏</p >
+                </div>
+                <div class="card reveal">
+                    <h3>菜单帮</h3>
+                    <h4>LBY SZX</h4>
+                    <p>成员掰手指，同时说出《三角洲行动》中的物品名称</p >
+                </div>
+                <div class="card reveal">
+                    <h3>巨人帮</h3>
+                    <h4>YHX WHY</h4>
+                    <p>成员人高马大</p >
+                </div>
             </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">YYC</div>
-                <h3>副帮主</h3>
-                <p>简介：副主管，曾经被LBH踢出极品帮</p>
+        </section>
+         
+        <section id="contact">
+            <h2 class="reveal">成员</h2>
+            <p class="reveal">如果你想了解成员信息，看这里。</p >
+            <div class="card-container">
+                <div class="card reveal">
+                    <h3>CMY</h3>
+                    <h4>帮主</h4>
+                    <p>喜欢观看和分享棍母视频</p >
+                </div>
+                <div class="card reveal">
+                    <h3>YYC</h3>
+                    <h4>副帮主</h4>
+                    <p>活跃度较低</p >
+                </div>
+                <div class="card reveal">
+                    <h3>YYH</h3>
+                    <h4>团建组织者</h4>
+                    <p>负责预约团建聚餐餐馆，骚品</p >
+                </div>
+                <div class="card reveal">
+                    <h3>LBY</h3>
+                    <h4>团建组织者</h4>
+                    <p>负责预选团建聚餐餐馆，轻度网瘾</p >
+                </div>
+                <div class="card reveal">
+                    <h3>DHYY</h3>
+                    <h4>团建组织者</h4>
+                    <p>负责安排羽毛球团建</p >
+                </div>
+                <div class="card reveal">
+                    <h3>ZZL</h3>
+                    <h4>特别极品的成员</h4>
+                    <p>爱打Counter-strike2且魔怔，经常向YYH抱住洗脑让其下载该游戏，并传输相关知识，喜欢说唐话</p >
+                </div>
+                <div class="card reveal">
+                    <h3>WYC</h3>
+                    <h4>特别极品和鲜品的成员</h4>
+                    <p>语言极品且仙品，把妹王，喜欢说唐话</p >
+                </div>
+                <div class="card reveal">
+                    <h3>YYF</h3>
+                    <h4>极品的成员</h4>
+                    <p>脑回路极品</p >
+                </div>
+                <div class="card reveal">
+                    <h3>HYB</h3>
+                    <h4>极品的成员</h4>
+                    <p>喜欢说唐话</p >
+                </div>
+                <div class="card reveal">
+                    <h3>ZSK</h3>
+                    <h4>极品的成员</h4>
+                    <p>喜欢雷霆大笑</p >
+                </div>
+                <div class="card reveal">
+                    <h3>WHY</h3>
+                    <h4>巨大的成员</h4>
+                    <p>喜欢上课睡觉，有大胃袋（MAX胃袋？），疑似有皮肤病，疑似家里有矿（矿里有家？）</p >
+                </div>
+                <div class="card reveal">
+                    <h3>YHX</h3>
+                    <h4>MAX的成员</h4>
+                    <p>除了身高很高没啥特点</p >
+                </div>
+                <div class="card reveal">
+                    <h3>SZX</h3>
+                    <h4>菜单帮-外部成员</h4>
+                    <p>爱说唐话和左右脑互搏</p >
+                </div>
+                <div class="card reveal">
+                    <h3>ZXY</h3>
+                    <h4>巨人帮-外部成员</h4>
+                    <p>暂时没啥特点</p >
+                </div>
+                
             </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">LBY</div>
-                <h3>团建组织者，附属-菜单帮帮主，附属-上海三打一成员，附属-KARDS帮帮主</h3>
-                <p>简介：负责组织聚餐团建，有轻微网瘾，喜欢报菜名（与三角洲行动相关）</p>
-                <details>
-                    <summary>极品事件点击展开</summary>
-                    <p>1.喜欢和同学“商量事情”</p>
-                    <p>2.喜欢说“我敲里哥”</p>
-                </details>
-            </div>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">DHYY</div>
-                <h3>团建组织者，附属-上海三打一成员</h3>
-                <p>简介：负责组织羽毛球团建，大部分羽毛球场地由他预定</p>
-                <details>
-                    <summary>极品事件点击展开</summary>
-                    <p>1.阳光A事件</p>
-                    <p>2.改背书抽奖程序代码事件</p>
-                </details>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">YYH</div>
-                <h3>团建组织者，附属-上海三打一成员，附属-KARDS帮成员</h3>
-                <p>简介：负责预定聚餐团建餐馆</p>
-                <details>
-                    <summary>极品事件点击展开</summary>
-                    <p>1.“吓尿”事件</p>
-                </details>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">ZZL</div>
-                <h3>附属-一人CS帮帮主，附属-KARDS帮成员</h3>
-                <p>简介：一人成立一人CS帮，日常行为表现极品，经常与其他成员讨论Counter-strike2</p>
-                <details>
-                    <summary>极品事件点击展开</summary>
-                    <p>1.论阳光菇与向日葵</p>
-                    <p>2.化学课食盐</p>
-                    <p>3.宣传CS2的宠物系统</p>
-                    <p>4.抱住YYH进行强制洗脑，要求他下载CS2</p>
-                </details>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">YHX</div>
-                <h3>附属-巨人帮帮主</h3>
-                <p>简介：管理巨人帮</p>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">WHY</div>
-                <h3>附属-巨人帮成员</h3>
-                <p>简介：巨人帮成员，外号口哥</p>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">WYC</div>
-                <h3>正式成员，王者荣耀帮成员，附属-KARDS帮成员</h3>
-                <p>简介：语言鲜品且极品，把妹能力较强</p>
-                <details>
-                    <summary>极品事件点击展开</summary>
-                    <p>1.英雄救美</p>
-                    <p>2.说唐话“我不来但可以打”</p>
-                    <img src="imgs/WYC唐话.png" alt="微信截图" width="300"></img>
-                </details>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">YYF</div>
-                <h3>正式成员，福瑞帮成员</h3>
-                <p>简介：性格耿直，有时脑回路较为极品</p>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">ZSK</div>
-                <h3>正式成员</h3>
-                <p>简介：笑声极品</p>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">HYB</div>
-                <h3>正式成员</h3>
-                <p>简介：喜欢说唐话，用词极品</p>
-            </div>
-        </div>
-        </div>
-    </section>
+        </section>
+        <section id="docs">
+            <h2 class="reveal">文档</h2>
+            <p class="reveal">你可以在这里查看组织的详细信息</p >
+            <p class="reveal"><a href="/pages/docs.html">>>点击这里进入文档页面</a ></p >
+        </section>
+    </main>
 
-    <!-- 组织架构 -->
-    <section id="structure">
-        <div class="section-title fade-in">
-            <h2>组织架构</h2>
-            <div class="line"></div>
-        </div>
-        <div class="org-structure fade-in">
-            <div class="org-level">
-                <div class="org-node">
-                    <div class="role">极品帮</div>
-                    <div class="desc">总部</div>
-                </div>
-            </div>
-            <div class="org-connector"></div>
-            <div class="org-level">
-                <div class="org-node">
-                    <div class="role">菜单帮</div>
-                    <div class="desc">附属2人帮派</div>
-                </div>
-                <div class="org-node">
-                    <div class="role">上海三打一</div>
-                    <div class="desc">附属3人帮派</div>
-                </div>
-                <div class="org-node">
-                    <div class="role">一人CS帮</div>
-                    <div class="desc">附属1人帮派</div>
-                </div>
-                <div class="org-node">
-                    <div class="role">巨人帮</div>
-                    <div class="desc">附属2人帮派</div>
-                </div>
-                <div class="org-node">
-                    <div class="role">KARDS帮</div>
-                    <div class="desc">附属4人帮派</div>
-                </div>
-            </div>
-    </section>
-
-    <!-- 加入我们 -->
-    <section id="join">
-        <div class="join-section fade-in">
-            <h2>极品事件</h2>
-            <div class="value-card fade-in">
-                <div class="value-icon">一、论阳光菇与向日葵</div>
-                <h3>ZZL DHYY</h3>
-                <p>等待补充</p>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">二、论《荒野求生》与《原始生活》</div>
-                <h3>ZZL DHYY</h3>
-                <p>等待补充</p>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">三、“香肠”事件</div>
-                <h3>WYC</h3>
-                <p>等待补充</p>
-            </div>
-        </div>
-        
-    </section>
-
-    <!-- 页脚 -->
     <footer>
-        <div class="footer-logo">⚜ 极品帮</div>
-        <p>追求极致 · 卓越不凡 | 不是极品，不入此门</p>
-        <p style="margin-top: 10px; font-size: 12px; color: #444;">© 2026 极品帮 保留所有权利</p>
+        <p>&copy; 2026 极品帮——不是极品·不入此门</p >
     </footer>
 
+    <!-- 脚本逻辑 -->
     <script>
-        // 创建粒子
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
-                const size = 1 + Math.random() * 3;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                container.appendChild(particle);
+        // 监听滚动事件，实现导航栏高亮联动
+        const sections = document.querySelectorAll('section');
+        const navLi = document.querySelectorAll('nav ul li a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                // 当页面滚动到section的三分之一处时，激活对应导航
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLi.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current)) {
+                    a.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <!-- 粒子背景特效容器 -->
+<canvas id="particle-canvas"></canvas>
+
+<style>
+    /* 粒子画布样式 */
+    #particle-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* 放在最底层 */
+        background-color: #0a0a0a; /* 与网页背景色一致 */
+    }
+</style>
+
+<script>
+    // 粒子特效逻辑
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particlesArray;
+
+    // 设置画布尺寸
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // 处理窗口大小改变
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        init();
+    });
+
+    // 鼠标交互
+    const mouse = {
+        x: null,
+        y: null,
+        radius: 150 // 鼠标互动范围半径
+    }
+
+    window.addEventListener('mousemove', (event) => {
+        mouse.x = event.x;
+        mouse.y = event.y;
+    });
+
+    // 鼠标移出窗口时清除坐标
+    window.addEventListener('mouseout', () => {
+        mouse.x = undefined;
+        mouse.y = undefined;
+    });
+
+    // 粒子类
+    class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+            this.x = x;
+            this.y = y;
+            this.directionX = directionX;
+            this.directionY = directionY;
+            this.size = size;
+            this.color = color;
+        }
+
+        // 绘制单个粒子
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+            ctx.fillStyle = '#ff6600'; // 粒子颜色（橙色）
+            ctx.fill();
+        }
+
+        // 更新粒子位置
+        update() {
+            // 边界检测（碰到边缘反弹）
+            if (this.x > canvas.width || this.x < 0) {
+                this.directionX = -this.directionX;
+            }
+            if (this.y > canvas.height || this.y < 0) {
+                this.directionY = -this.directionY;
+            }
+
+            // 鼠标碰撞检测与互动
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < mouse.radius + this.size) {
+                if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
+                    this.x += 3; // 鼠标靠近时粒子向右躲避
+                }
+                if (mouse.x > this.x && this.x > this.size * 10) {
+                    this.x -= 3; // 鼠标靠近时粒子向左躲避
+                }
+                if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
+                    this.y += 3; // 鼠标靠近时粒子向下躲避
+                }
+                if (mouse.y > this.y && this.y > this.size * 10) {
+                    this.y -= 3; // 鼠标靠近时粒子向上躲避
+                }
+            }
+
+            // 移动粒子
+            this.x += this.directionX;
+            this.y += this.directionY;
+
+            this.draw();
+        }
+    }
+
+    // 初始化粒子群
+    function init() {
+        particlesArray = [];
+        // 粒子数量计算：屏幕面积除以除数，数字越大粒子越少
+        let numberOfParticles = (canvas.height * canvas.width) / 9000;
+        
+        for (let i = 0; i < numberOfParticles; i++) {
+            let size = (Math.random() * 2) + 1; // 粒子大小
+            let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+            let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+            let directionX = (Math.random() * 2) - 1; // 水平移动速度
+            let directionY = (Math.random() * 2) - 1; // 垂直移动速度
+            let color = '#ff6600';
+
+            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+        }
+    }
+
+    // 连线效果
+    function connect() {
+        let opacityValue = 1;
+        for (let a = 0; a < particlesArray.length; a++) {
+            for (let b = a; b < particlesArray.length; b++) {
+                let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
+                             + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                
+                // 粒子之间距离小于一定值时连线
+                if (distance < (canvas.width / 7) * (canvas.height / 7)) {
+                    opacityValue = 1 - (distance / 20000);
+                    ctx.strokeStyle = 'rgba(255, 102, 0,' + opacityValue + ')'; // 连线颜色（橙色半透明）
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                    ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                    ctx.stroke();
+                }
             }
         }
+    }
 
-        // 滚动动画
-        function handleScroll() {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 100) {
-                    el.classList.add('visible');
-                }
-            });
+    // 动画循环
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
         }
+        connect();
+    }
 
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
+    init();
+    animate();
+// 滚动渐进显示逻辑
+const revealElements = document.querySelectorAll('.reveal');
 
-        // 初始化
-        window.addEventListener('load', () => {
-            createParticles();
-            handleScroll();
-        });
+const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        // 当元素进入视口时
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            // 动画只播放一次，播放后取消观察（如果想每次滚动都触发，可以注释掉下面这行）
+            observer.unobserve(entry.target); 
+        }
+    });
+}, {
+    root: null,
+    threshold: 0.15, // 元素出现 15% 时触发动画
+    rootMargin: "0px"
+});
 
-        window.addEventListener('scroll', handleScroll);
-    </script>
+revealElements.forEach(el => {
+    revealObserver.observe(el);
+});
+</script>
 </body>
 </html>
